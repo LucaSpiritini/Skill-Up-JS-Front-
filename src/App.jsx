@@ -9,6 +9,7 @@ import SecondScreen from './Screens/SecondScreen'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import TransactionForm from './Components/Transactions/TransactionsForm'
+import CategoryForm from './Components/CategoryForm/CategoryForm'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route exact path={'/'} element={ <HomeScreen /> } />
           <Route path={'/news'} element={ <SecondScreen /> } />
           <Route exact path={'/transactions'} element={ <TransactionForm /> } />
+          <Route exact path={'/category'} element={ <CategoryForm /> } />
         </Routes>
       </Layout>
     </BrowserRouter>
