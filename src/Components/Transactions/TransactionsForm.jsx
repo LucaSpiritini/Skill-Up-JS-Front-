@@ -24,7 +24,9 @@ export default function TransactionForm() {
     // date: "",
     userId: user.user.id,
     categoryId: pathName === "/deposit" ? 1 : 2,
-    // toUserId: "",
+
+    //toUserId: "",
+
   };
   const validationSchema = Yup.object({
     description: Yup.string().required(" Required"),
@@ -40,7 +42,9 @@ export default function TransactionForm() {
         // date: date.value,
         userId: user.user.id,
         categoryId: pathName === "/deposit" ? 1 : 2,
+
         // toUserId: toUserId.value,
+
       }).unwrap();
       console.log(data);
       navigate("/");
