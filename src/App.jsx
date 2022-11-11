@@ -8,10 +8,10 @@ import SecondScreen from "./Screens/SecondScreen";
 // import NotFoundScreen from './Screens/404Screen'
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import TransactionForm from "./Components/Transactions/TransactionsForm";
 import RequireAuth from "./Components/RequireAuth";
 import Persist from "./Components/Persist";
 import Layout from "./Components/Layout/Layout";
+import { TransactionScreen } from "./Screens/TransactionScreen";
 // import FormikContainer from "./Components/FormUser/FormikContainer";
 import UserRegister from "./Components/FormUser/UserRegister";
 import ProfileUser from "./Components/ProfileUser/ProfileUser";
@@ -26,12 +26,17 @@ function App() {
           <Route element={<Persist />}>
             <Route element={<RequireAuth />}>
               <Route element={<TransactionLayout />}>
+                <Route path="/" element={<TransactionScreen />} />
+
+                <Route path="/deposit" element={<TransactionForm />} />
+                <Route path="/pay" element={<TransactionForm />} />
+
                 <Route path="/" element={<TransactionForm />} />
                 <Route path={"/profile"} element={<ProfileUser />} />
                 <Route path="/deposit" element={<HomeScreen />} />
                 <Route path="/pay" element={<HomeScreen />} />
                 <Route path="/balance" element={<HomeScreen />} />
-                <Route path="/send" element={<HomeScreen />} />
+                <Route path="/send" element={<TransactionForm />} />
               </Route>
             </Route>
           </Route>

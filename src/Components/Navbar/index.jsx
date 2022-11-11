@@ -23,7 +23,7 @@ export const Navbar = () => {
   let active = "bg-black text-white pl-16 easy-in duration-300";
   return (
     <>
-      <div className="md:hidden">
+      <div className="m-3 md:hidden">
         <Hamburger isOpen={sidebarOpen} toggleSidebar={setSidebarOpen} />
       </div>
       {sidebarOpen && (
@@ -104,7 +104,7 @@ export const Navbar = () => {
               <span className="pl-6 font-bold">Profile</span>
             </div>
           </NavLink>
-          <button onClick={onLogout}>
+          <button onClick={onLogout} className="py-3 pl-6 bg-black text-white">
             <div className="flex items-center pl-6">
               <CgLogOut />
               <span className="pl-6 font-bold">Logout</span>

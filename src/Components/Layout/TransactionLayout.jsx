@@ -1,14 +1,11 @@
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { Navbar } from "../Navbar";
-import { Outlet, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../store/authSlice";
-import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <div className="flex h-full">
+    <div className=" md:flex md:h-full">
       <Navbar />
 
       <div className="flex flex-col w-full">

@@ -1,62 +1,70 @@
 import { createEntityAdapter } from "@reduxjs/toolkit/dist";
-import { apiSlice } from "./apislice";
+import { apiSlice } from "./apiSlice";
 
+const transactionAdapter = createEntityAdapter({});
 
-const transactionAdapter = createEntityAdapter({})
-
-const initialState = transactionAdapter.getInitialState()
+const initialState = transactionAdapter.getInitialState();
 
 export const transactionApiSlice = apiSlice.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     createTransaction: builder.mutation({
-      query: initialData => ({
-        url: '/transactions',
-        method: 'POST',
-        body: {
-          ...initialData
-        }
-      }),
-      invalidateTags: [
-        { type: 'transaction', id: "transaction" }
-      ]
+      query: (initialData) => {
+        return {
+          url: "/transactions",
+          method: "POST",
+          body: {
+            ...initialData,
+          },
+        };
+      },
+      invalidateTags: [{ type: "transaction", id: "transaction" }],
     }),
     getTransactions: builder.query({
       query: (args) => {
-        const { categoryId, description, currency } = args
+        const { categoryId, description, currency, page } = args;
+
         return {
-          url: '/transactions',
-          method: 'GET',
-          params: { categoryId, description, currency }
-        }
+          url: `/transactions?page=${page}`,
+          method: "GET",
+          params: { categoryId, description, currency },
+        };
       },
       provideTags: (result, error, arg) => {
         if (result?.ids) {
           return [
-            { type: "transaction", id: 'transaction' },
-            ...result.ids.map(id => ({ type: 'transaction', id }))
-          ]
-        } else return [{ type: "transaction", id: 'transaction' }]
-      }
+            { type: "transaction", id: "transaction" },
+            ...result.ids.map((id) => ({ type: "transaction", id })),
+          ];
+        } else return [{ type: "transaction", id: "transaction" }];
+      },
     }),
     editTransaction: builder.mutation({
       query: (data) => ({
         url: `/transaction/${data.id}`,
-        method: 'PUT',
+        method: "PUT",
         body: {
-          ...data
-        }
+          ...data,
+        },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: 'transaction', id: arg.id }]
+      invalidatesTags: (result, error, arg) => [
+        { type: "transaction", id: arg.id },
+      ],
     }),
     deleteTransaction: builder.mutation({
       query: ({ id }) => ({
-        url: '/transaction',
-        method: 'DELETE',
+        url: "/transaction",
+        method: "DELETE",
       }),
-      invalidatesTags: (result, error, arg) => [{ type: 'transaction', id: arg.id }]
-    })
-  })
-})
+      invalidatesTags: (result, error, arg) => [
+        { type: "transaction", id: arg.id },
+      ],
+    }),
+  }),
+});
 
-
-export const { useCreateTransactionMutation, useGetTransactionsQuery, useEditTransactionMutation, useDeleteTransactionMutation } = transactionApiSlice
+export const {
+  useCreateTransactionMutation,
+  useGetTransactionsQuery,
+  useEditTransactionMutation,
+  useDeleteTransactionMutation,
+} = transactionApiSlice;
