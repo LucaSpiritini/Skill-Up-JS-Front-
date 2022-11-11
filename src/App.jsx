@@ -13,6 +13,7 @@ import Persist from "./Components/Persist";
 import Layout from "./Components/Layout/Layout";
 import { TransactionScreen } from "./Screens/TransactionScreen";
 import TransactionForm from "./Components/Transactions/TransactionsForm";
+import { BalanceScreen } from "./Screens/BalanceScreen";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
                 <Route path="/deposit" element={<TransactionForm />} />
                 <Route path="/pay" element={<TransactionForm />} />
 
-                <Route path="/balance" element={<HomeScreen />} />
+                <Route path="/balance" element={<BalanceScreen />} />
                 <Route path="/send" element={<TransactionForm />} />
               </Route>
             </Route>

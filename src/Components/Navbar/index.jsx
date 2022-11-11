@@ -12,6 +12,17 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 
+const NavDesktop = ({ icon, name, path, active }) => {
+  return (
+    <NavLink to={path} activeClassName={active}>
+      <div className="flex items-center pl-6">
+        {icon}
+        <span className="pl-6 font-bold">{name}</span>
+      </div>
+    </NavLink>
+  );
+};
+
 export const Navbar = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,6 +32,14 @@ export const Navbar = () => {
   };
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
   let active = "bg-black text-white pl-16 easy-in duration-300";
+  const NavDesktopLinks = [
+    { icon: <AiOutlineTransaction />, name: "Transactions", path: "/" },
+    { icon: <FaMoneyBill />, name: "Deposit", path: "/deposit" },
+    { icon: <GiPayMoney />, name: "Pay", path: "/pay" },
+    { icon: <FaBalanceScale />, name: "Balance", path: "/balance" },
+    { icon: <FiSend />, name: "Send Money", path: "/send" },
+  ];
+
   return (
     <>
       <div className="m-3 md:hidden">
@@ -64,7 +83,16 @@ export const Navbar = () => {
         </div>
 
         <div className="mt-8 flex flex-col flex-1">
-          <NavLink to="/transactions" activeClassName={active}>
+          {NavDesktopLinks.map((link, i) => (
+            <NavDesktop
+              key={i}
+              icon={link.icon}
+              name={link.name}
+              path={link.path}
+              active={active}
+            />
+          ))}
+          {/* <NavLink to="/" activeClassName={active}>
             <div className="flex items-center pl-6">
               <AiOutlineTransaction />
               <span className="pl-6 font-bold">Transactions</span>
@@ -94,7 +122,7 @@ export const Navbar = () => {
               <FiSend />
               <span className="pl-6 font-bold">Send Money</span>
             </div>
-          </NavLink>
+          </NavLink> */}
         </div>
         <hr className="my-4 mx-10 h-[2px] bg-black" />
         <div className="flex flex-col mb-12">

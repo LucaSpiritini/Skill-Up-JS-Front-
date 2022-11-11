@@ -1,25 +1,21 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3000/",
-  credentials: 'include',
+  credentials: "include",
   prepareHeaders: (headers, { getState }) => {
-    const token = getState().auth.token
+    const token = getState().auth.token;
 
     if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
+      headers.set("Authorization", `Bearer ${token}`);
     }
 
-    return headers
-  }
-})
-
-
-
+    return headers;
+  },
+});
 
 export const apiSlice = createApi({
   baseQuery,
-  tagTypes: ['user', 'transaction'],
-  endpoints: builder => ({})
-})
+  tagTypes: ["User", "Transaction"],
+  endpoints: (builder) => ({}),
+});

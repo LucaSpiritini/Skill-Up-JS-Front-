@@ -1,39 +1,35 @@
-import { createEntityAdapter } from "@reduxjs/toolkit"
-import { apiSlice } from "./apiSlice"
+import { createEntityAdapter } from "@reduxjs/toolkit";
+import { apiSlice } from "./apiSlice";
 
+const userAdapter = createEntityAdapter({});
 
-const userAdapter = createEntityAdapter({})
-
-const initialState = userAdapter.getInitialState()
-
+const initialState = userAdapter.getInitialState();
 
 export const userApiSlice = apiSlice.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     balance: builder.query({
-      query: ({ id }) => ({
-        url: `/transactions/balance/${id}`, // TODO Remove to receive id from url 
-        method: 'GET',
+      query: () => ({
+        url: `/transactions/balance`,
+        method: "GET",
         providesTags: (result, error, arg) => {
           if (result?.ids) {
             return [
-              { type: "user", id: 'user' },
-              ...result.ids.map(id => ({ type: 'user', id }))
-            ]
-          } else return [{ type: "user", id: 'user' }]
-        }
-      })
+              { type: "user", id: "user" },
+              ...result.ids.map((id) => ({ type: "user", id })),
+            ];
+          } else return [{ type: "user", id: "user" }];
+        },
+      }),
     }),
     sendMoney: builder.mutation({
       query: (data) => ({
-        url: '/transactions/send',
-        method: 'POST',
-        body: { ...data }
+        url: "/transactions/send",
+        method: "POST",
+        body: { ...data },
       }),
-      invalidateTags: [
-        { type: 'transaction', id: "transaction" }
-      ]
-    })
-  })
-})
+      invalidateTags: [{ type: "transaction", id: "transaction" }],
+    }),
+  }),
+});
 
-export const { useBalanceQuery, useSendMoneyMutation, } = userApiSlice
+export const { useBalanceQuery, useSendMoneyMutation } = userApiSlice;

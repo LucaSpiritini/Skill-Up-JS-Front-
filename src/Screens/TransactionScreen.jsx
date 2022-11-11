@@ -9,11 +9,14 @@ import Boton from "../Components/Boton";
 
 export const TransactionScreen = () => {
   const filterRef = useRef("");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [description, setDescription] = useState("");
 
   const { data, isLoading, isError, error, isSuccess } =
-    useGetTransactionsQuery({ page, description });
+    useGetTransactionsQuery(
+      { page, description },
+      { refetchOnMountOrArgChange: true }
+    );
 
   const setDesc = (e) => {
     e.preventDefault();

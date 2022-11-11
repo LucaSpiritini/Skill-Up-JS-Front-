@@ -39,13 +39,13 @@ export default function TransactionForm() {
         description: description.value,
         amount: amount.value,
         currency: currency.value,
-        date: date.value,
+
         userId: user.user.id,
         categoryId: pathName === "/deposit" ? 1 : 2,
         toUserId:
           pathName === "/send" ? toUserId.vale : initialValues.toUserId.value,
       }).unwrap();
-      console.log("currency en data", data.body.currency);
+
       navigate("/");
     } catch (err) {
       console.log(err);
