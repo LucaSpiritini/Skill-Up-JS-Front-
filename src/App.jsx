@@ -4,17 +4,14 @@ import "./App.css";
 
 import TransactionLayout from "./Components/Layout/TransactionLayout";
 import HomeScreen from "./Screens/HomeScreen";
-import SecondScreen from "./Screens/SecondScreen";
-// import NotFoundScreen from './Screens/404Screen'
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RequireAuth from "./Components/RequireAuth";
 import Persist from "./Components/Persist";
 import Layout from "./Components/Layout/Layout";
 import { TransactionScreen } from "./Screens/TransactionScreen";
-// import FormikContainer from "./Components/FormUser/FormikContainer";
 import UserRegister from "./Components/FormUser/UserRegister";
 import ProfileUser from "./Components/ProfileUser/ProfileUser";
+import TransactionForm from "./Components/Transactions/TransactionsForm";
 
 function App() {
   return (
