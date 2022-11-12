@@ -32,12 +32,14 @@ function App() {
                 <Route path="/deposit" element={<TransactionForm />} />
                 <Route path="/pay" element={<TransactionForm />} />
 
+                <Route path="/balance" element={<BalanceScreen />} />
+
+
 
                 <Route path="/" element={<TransactionForm />} />
                 <Route path={"/profile"} element={<ProfileUser />} />
                 <Route path="/deposit" element={<HomeScreen />} />
                 <Route path="/pay" element={<HomeScreen />} />
-                <Route path="/balance" element={<HomeScreen />} />
 
                 <Route path="/send" element={<TransactionForm />} />
               </Route>

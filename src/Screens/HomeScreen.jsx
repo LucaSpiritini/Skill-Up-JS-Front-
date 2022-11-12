@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../store/authApiSlice";
 import { setCredentials } from "../store/authSlice";
-
+import Loading from "../Components/Loading/Loading";
 const HomeScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +25,9 @@ const HomeScreen = () => {
       console.log(err);
     }
   };
-
+  if (isLoading) {
+    return <Loading/> // TODO change to Loader Spinner
+  }
   return (
     <div className="my-64">
       <form

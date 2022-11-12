@@ -5,16 +5,20 @@ import { useGetTransactionsQuery } from "../store/transactionApiSlice";
 import { SingleRow } from "../Components/Table/SingleRow";
 import { Paginate } from "../Components/Paginate";
 import { useRef } from "react";
+
+import Loading from "../Components/Loading/Loading";
+
 import Boton from "../Components/Boton";
+
 
 export const TransactionScreen = () => {
   const filterRef = useRef("");
   const [page, setPage] = useState(0);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(undefined);
 
   const { data, isLoading, isError, error, isSuccess } =
     useGetTransactionsQuery(
-      { page, description },
+      { page },
       { refetchOnMountOrArgChange: true }
     );
 
@@ -25,14 +29,15 @@ export const TransactionScreen = () => {
   };
   let content;
   if (isLoading) {
-    return <p>Loading</p>; // TODO change to Loader Spinner
+    return <Loading/> // TODO change to Loader Spinner
   }
   if (isError) {
-    // console.log(error);
+    console.log(error);
     //TODO Alert Popup
   }
   if (isSuccess) {
-    content = data?.body.rows.map((transaction) => (
+
+   content = data?.body.rows.map((transaction) => (
       <SingleRow transaction={transaction} key={transaction.id} />
       ));
       

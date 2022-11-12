@@ -19,7 +19,7 @@ const edit = () =>{
       <td>{transaction?.id}</td>
       <td>{transaction?.description}</td>
       <td>
-        {transaction?.Category.name === "Incomes" ? (
+        {transaction?.categoryId === 1 ? (
           <span className="text-green-400">+{transaction?.amount}</span>
         ) : (
           <span className="text-red-400">-{transaction?.amount}</span>
