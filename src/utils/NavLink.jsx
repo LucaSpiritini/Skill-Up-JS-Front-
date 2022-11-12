@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link, NavLink as BaseNavLink } from 'react-router-dom'
+import React from "react";
+import { NavLink as BaseNavLink } from "react-router-dom";
 
 export const NavLink = React.forwardRef(
   ({ activeClassName, activeStyle, ...props }, ref) => {
@@ -8,11 +8,7 @@ export const NavLink = React.forwardRef(
         ref={ref}
         {...props}
         className={({ isActive }) =>
-          [
-            props.className,
-            'py-3 pl-6',
-            isActive ? activeClassName : null,
-          ]
+          [props.className, "py-3 pl-6", isActive ? activeClassName : null]
             .filter(Boolean)
             .join(" ")
         }

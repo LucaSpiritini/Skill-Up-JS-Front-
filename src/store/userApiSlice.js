@@ -8,16 +8,16 @@ import { apiSlice } from "./apiSlice";
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     balance: builder.query({
-      query: ({ id }) => ({
-        url: `/transactions/balance/${id}`, // TODO Remove to receive id from url
+      query: (args) => ({
+        url: `/transactions/balance/user`,
         method: "GET",
         providesTags: (result, error, arg) => {
           if (result?.ids) {
             return [
-              { type: "user", id: "user" },
-              ...result.ids.map((id) => ({ type: "user", id })),
+              { type: "User", id: "USER" },
+              ...result.ids.map((id) => ({ type: "User", id })),
             ];
-          } else return [{ type: "user", id: "user" }];
+          } else return [{ type: "User", id: "USER" }];
         },
       }),
     }),
@@ -45,6 +45,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...data },
       }),
+
+      invalidateTags: [{ type: "transaction", id: "TRANSACTION" }],
     }),
   }),
 });

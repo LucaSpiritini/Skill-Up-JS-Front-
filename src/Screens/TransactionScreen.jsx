@@ -6,13 +6,18 @@ import { SingleRow } from "../Components/Table/SingleRow";
 import { Paginate } from "../Components/Paginate";
 import { useRef } from "react";
 
+import Loading from "../Components/Loading/Loading";
+
 export const TransactionScreen = () => {
   const filterRef = useRef("");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [description, setDescription] = useState("");
 
   const { data, isLoading, isError, error, isSuccess } =
-    useGetTransactionsQuery({ page, description });
+    useGetTransactionsQuery(
+      { page, description },
+      { refetchOnMountOrArgChange: true }
+    );
 
   const setDesc = (e) => {
     e.preventDefault();
@@ -21,13 +26,14 @@ export const TransactionScreen = () => {
   };
   let content;
   if (isLoading) {
-    return <p>Loading</p>; // TODO change to Loader Spinner
+    return <Loading />;
   }
   if (isError) {
-    // console.log(error);
+    console.log(error);
     //TODO Alert Popup
   }
   if (isSuccess) {
+    console.log(data.body);
     content = data?.body.rows.map((transaction) => (
       <SingleRow transaction={transaction} key={transaction.id} />
     ));
@@ -45,7 +51,7 @@ export const TransactionScreen = () => {
             ref={filterRef}
             className="bg-[#F0F0F0] w-full rounded-lg p-2 outline-none"
           />
-          <button className="bg-black text-white rounded-r-xl py-2 px-4">
+          <button className="bg-gray-900 text-white rounded-r-xl py-2 px-4">
             Search
           </button>
         </form>
