@@ -36,10 +36,11 @@ export default function FormikContainer({ action }) {
       alert("Error", "Error", "error");
     }
   } else if (isErrorEdit) {
-    if (errorEdit.originalStatus === 404) {
-      alert("Error", errorEdit, "error");
+    if (errorEdit.status === 404) {
+      alert("Error", errorEdit.data.error, "error");
     } else {
-      alert("Error", "Error", "error");
+      console.log("error", errorEdit.status);
+      alert("Error", "Erssror", "error");
     }
   }
 
