@@ -8,8 +8,6 @@ import { useRef } from "react";
 
 import Loading from "../Components/Loading/Loading";
 
-import Boton from "../Components/ButtonComponent";
-
 export const TransactionScreen = () => {
   const filterRef = useRef("");
   const [page, setPage] = useState(0);
@@ -28,7 +26,7 @@ export const TransactionScreen = () => {
   };
   let content;
   if (isLoading) {
-    return <Loading />; // TODO change to Loader Spinner
+    return <Loading />;
   }
   if (isError) {
     console.log(error);
