@@ -48,7 +48,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
         },
       }),
       invalidatesTags: (result, error, arg) => [
-        { type: "transaction", id: arg.id },
+        { type: "Transaction", id: arg.id },
       ],
     }),
     deleteTransaction: builder.mutation({
@@ -57,7 +57,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
       invalidatesTags: (result, error, arg) => [
-        { type: "transaction", id: arg.id },
+        { type: "Transaction", id: arg.id },
       ],
     }),
   }),
