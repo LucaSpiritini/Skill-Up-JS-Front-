@@ -1,18 +1,15 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "./apiSlice";
 
-
 // const userAdapter = createEntityAdapter({});
 
 // const initialState = userAdapter.getInitialState();
 
-
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     balance: builder.query({
-
-      query: ({ id }) => ({
-        url: `/transactions/balance/${id}`, // TODO Remove to receive id from url
+      query: (args) => ({
+        url: `/transactions/balance/user`,
         method: "GET",
         providesTags: (result, error, arg) => {
           if (result?.ids) {
@@ -29,7 +26,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url: "/transactions/send",
         method: "POST",
         body: { ...data },
-
       }),
     }),
     userEdit: builder.mutation({
@@ -47,11 +43,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
 
       invalidateTags: [{ type: "transaction", id: "TRANSACTION" }],
-
     }),
   }),
 });
-
 
 export const {
   useBalanceQuery,
@@ -59,4 +53,3 @@ export const {
   useUserEditMutation,
   useUserRegisterMutation,
 } = userApiSlice;
-

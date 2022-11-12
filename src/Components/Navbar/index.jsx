@@ -31,7 +31,7 @@ export const Navbar = () => {
     navigate("/login");
   };
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
-  let active = "bg-black text-white pl-16 easy-in duration-300";
+  let active = "bg-gray-900 text-white pl-16 easy-in duration-300";
   const NavDesktopLinks = [
     { icon: <AiOutlineTransaction />, name: "Transactions", path: "/" },
     { icon: <FaMoneyBill />, name: "Deposit", path: "/deposit" },
@@ -50,7 +50,7 @@ export const Navbar = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center space-y-3 text-white fixed w-[200px] h-[250px] left-[50%] top-[5%] ml-[-100px] bg-black rounded-xl"
+          className="flex flex-col items-center space-y-3 text-white fixed w-[200px] h-[250px] left-[50%] top-[5%] ml-[-100px] bg-gray-900 rounded-xl"
         >
           <Link onClick={() => setSidebarOpen(false)} to="/transactions">
             Transactions
@@ -92,39 +92,8 @@ export const Navbar = () => {
               active={active}
             />
           ))}
-          {/* <NavLink to="/" activeClassName={active}>
-            <div className="flex items-center pl-6">
-              <AiOutlineTransaction />
-              <span className="pl-6 font-bold">Transactions</span>
-            </div>
-          </NavLink>
-          <NavLink to="/deposit" activeClassName={active}>
-            <div className="flex items-center pl-6">
-              <FaMoneyBill />
-              <span className="pl-6 font-bold">Deposit</span>
-            </div>
-          </NavLink>
-          <NavLink to="/pay" activeClassName={active}>
-            <div className="flex items-center pl-6">
-              <GiPayMoney />
-              <span className="pl-6 font-bold">Pay</span>
-            </div>
-          </NavLink>
-
-          <NavLink to="/balance" activeClassName={active}>
-            <div className="flex items-center pl-6">
-              <FaBalanceScale />
-              <span className="pl-6 font-bold">Balance</span>
-            </div>
-          </NavLink>
-          <NavLink to="/send" activeClassName={active}>
-            <div className="flex items-center pl-6">
-              <FiSend />
-              <span className="pl-6 font-bold">Send Money</span>
-            </div>
-          </NavLink> */}
         </div>
-        <hr className="my-4 mx-10 h-[2px] bg-black" />
+        <hr className="my-4 mx-10 h-[2px] bg-gray-900 " />
         <div className="flex flex-col mb-12">
           <NavLink to="/profile" activeClassName={active}>
             <div className="flex items-center pl-6">
@@ -132,7 +101,10 @@ export const Navbar = () => {
               <span className="pl-6 font-bold">Profile</span>
             </div>
           </NavLink>
-          <button onClick={onLogout} className="py-3 pl-6 bg-black text-white">
+          <button
+            onClick={onLogout}
+            className="py-3 pl-6 bg-gray-900 text-white"
+          >
             <div className="flex items-center pl-6">
               <CgLogOut />
               <span className="pl-6 font-bold">Logout</span>
