@@ -17,11 +17,12 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
           },
         };
       },
-      invalidateTags: [{ type: "transaction", id: "transaction" }],
+      invalidateTags: [{ type: "Transaction", id: "TRANSACTIONS" }],
     }),
     getTransactions: builder.query({
       query: (args) => {
         const { categoryId, description, currency, page } = args;
+        console.log(page);
 
         return {
           url: `/transactions?page=${page}`,
@@ -32,10 +33,10 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
       provideTags: (result, error, arg) => {
         if (result?.ids) {
           return [
-            { type: "transaction", id: "transaction" },
-            ...result.ids.map((id) => ({ type: "transaction", id })),
+            { type: "Transaction", id: "TRANSACTIONS" },
+            ...result.ids.map((id) => ({ type: "Transaction", id })),
           ];
-        } else return [{ type: "transaction", id: "transaction" }];
+        } else return [{ type: "Transaction", id: "TRANSACTIONS" }];
       },
     }),
     editTransaction: builder.mutation({

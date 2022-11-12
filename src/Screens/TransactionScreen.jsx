@@ -5,14 +5,18 @@ import { useGetTransactionsQuery } from "../store/transactionApiSlice";
 import { SingleRow } from "../Components/Table/SingleRow";
 import { Paginate } from "../Components/Paginate";
 import { useRef } from "react";
+import Boton from "../Components/Boton";
 
 export const TransactionScreen = () => {
   const filterRef = useRef("");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [description, setDescription] = useState("");
 
   const { data, isLoading, isError, error, isSuccess } =
-    useGetTransactionsQuery({ page, description });
+    useGetTransactionsQuery(
+      { page, description },
+      { refetchOnMountOrArgChange: true }
+    );
 
   const setDesc = (e) => {
     e.preventDefault();
@@ -30,7 +34,8 @@ export const TransactionScreen = () => {
   if (isSuccess) {
     content = data?.body.rows.map((transaction) => (
       <SingleRow transaction={transaction} key={transaction.id} />
-    ));
+      ));
+      
   }
 
   return (
