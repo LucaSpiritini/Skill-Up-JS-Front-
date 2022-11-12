@@ -9,7 +9,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     balance: builder.query({
       query: () => ({
-        url: `/transactions/balance`,
+        url: `/transactions/balance/user`,
         method: "GET",
         providesTags: (result, error, arg) => {
           if (result?.ids) {
