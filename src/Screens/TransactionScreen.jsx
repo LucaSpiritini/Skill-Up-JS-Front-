@@ -8,17 +8,16 @@ import { useRef } from "react";
 
 import Loading from "../Components/Loading/Loading";
 
-import Boton from "../Components/Boton";
-
+import Boton from "../Components/ButtonComponent";
 
 export const TransactionScreen = () => {
   const filterRef = useRef("");
   const [page, setPage] = useState(0);
-  const [description, setDescription] = useState(undefined);
+  const [description, setDescription] = useState("");
 
   const { data, isLoading, isError, error, isSuccess } =
     useGetTransactionsQuery(
-      { page },
+      { page, description },
       { refetchOnMountOrArgChange: true }
     );
 
@@ -29,18 +28,17 @@ export const TransactionScreen = () => {
   };
   let content;
   if (isLoading) {
-    return <Loading/> // TODO change to Loader Spinner
+    return <Loading />; // TODO change to Loader Spinner
   }
   if (isError) {
     console.log(error);
     //TODO Alert Popup
   }
   if (isSuccess) {
-
-   content = data?.body.rows.map((transaction) => (
+    console.log(data.body);
+    content = data?.body.rows.map((transaction) => (
       <SingleRow transaction={transaction} key={transaction.id} />
-      ));
-      
+    ));
   }
 
   return (
@@ -55,7 +53,7 @@ export const TransactionScreen = () => {
             ref={filterRef}
             className="bg-[#F0F0F0] w-full rounded-lg p-2 outline-none"
           />
-          <button className="bg-black text-white rounded-r-xl py-2 px-4">
+          <button className="bg-gray-900 text-white rounded-r-xl py-2 px-4">
             Search
           </button>
         </form>
