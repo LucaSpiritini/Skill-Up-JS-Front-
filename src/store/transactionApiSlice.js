@@ -40,20 +40,22 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
       },
     }),
     editTransaction: builder.mutation({
-      query: (data) => ({
-        url: `/transaction/${data.id}`,
-        method: "PUT",
-        body: {
-          ...data,
-        },
-      }),
+      query: (data) => {
+        return {
+          url: `/transactions/${data.id}`,
+          method: "PUT",
+          body: {
+            ...data,
+          },
+        };
+      },
       invalidatesTags: (result, error, arg) => [
         { type: "Transaction", id: arg.id },
       ],
     }),
     deleteTransaction: builder.mutation({
       query: ({ id }) => ({
-        url: "/transaction",
+        url: "/transactions",
         method: "DELETE",
       }),
       invalidatesTags: (result, error, arg) => [

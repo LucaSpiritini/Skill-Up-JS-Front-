@@ -11,12 +11,17 @@ export const SingleRow = ({ transaction }) => {
     return format("dd/MM/yy", newDate);
   };
   const edit = () => {
-    navigate(`/edit-${transaction.id}`);
+    console.log(transaction);
+    navigate(`/edit-${transaction.id}`, {
+      state: { id: transaction?.id, description: transaction?.description },
+    });
   };
 
   const formatCurrency = (currency, amount) => {
     const currencyMap = new Map([
-      ["pesos", "$", "euros", "€", "dolares", "U$D"],
+      ["pesos", "$"],
+      ["euros", "€"],
+      ["dolares", "U$D"],
     ]);
     return ` ${currencyMap.get(currency)}${amount}`;
   };
@@ -38,13 +43,10 @@ export const SingleRow = ({ transaction }) => {
       </td>
       <td className="text-center">{parseDate(transaction?.date)}</td>
       <td>
-        <ButtonComponent icon={<AiOutlineEdit />} />
-      </td>
-      <td>
         <ButtonComponent
+          icon={<AiOutlineEdit />}
           textBg="bg-gray-900"
           textColor="text-white"
-          icon={<BsFillTrashFill />}
           onClick={edit}
         />
       </td>
