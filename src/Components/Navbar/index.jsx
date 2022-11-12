@@ -52,7 +52,7 @@ export const Navbar = () => {
           transition={{ duration: 0.5 }}
           className="flex flex-col items-center space-y-3 text-white fixed w-[200px] h-[250px] left-[50%] top-[5%] ml-[-100px] bg-gray-900 rounded-xl"
         >
-          <Link onClick={() => setSidebarOpen(false)} to="/transactions">
+          <Link onClick={() => setSidebarOpen(false)} to="/">
             Transactions
           </Link>
           <Link onClick={() => setSidebarOpen(false)} to="/deposit">
@@ -67,19 +67,17 @@ export const Navbar = () => {
           <Link onClick={() => setSidebarOpen(false)} to="/send">
             Send Money
           </Link>
-          <Link onClick={() => setSidebarOpen(false)} to="/transactions">
+          <Link onClick={() => setSidebarOpen(false)} to="/profile">
             Profile
           </Link>
-          <Link onClick={() => setSidebarOpen(false)} to="/transactions">
-            Logout
-          </Link>
+          <button onClick={onLogout}>Logout</button>
         </motion.div>
       )}
 
       <div className="hidden md:flex flex-col w-80 bg-white h-full rounded-r-3xl">
         <div className="m-8 mx-12">
           <h1 className="text-3xl">Alkemy</h1>
-          <h1 className="text-3xl text-right">Wallet</h1>
+          <h1 className="text-3xl text-right">Bank</h1>
         </div>
 
         <div className="mt-8 flex flex-col flex-1">
