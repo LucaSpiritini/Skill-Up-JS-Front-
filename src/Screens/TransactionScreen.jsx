@@ -5,7 +5,12 @@ import { useGetTransactionsQuery } from "../store/transactionApiSlice";
 import { SingleRow } from "../Components/Table/SingleRow";
 import { Paginate } from "../Components/Paginate";
 import { useRef } from "react";
+
 import Loading from "../Components/Loading/Loading";
+
+import Boton from "../Components/Boton";
+
+
 export const TransactionScreen = () => {
   const filterRef = useRef("");
   const [page, setPage] = useState(0);
@@ -34,7 +39,8 @@ export const TransactionScreen = () => {
 
    content = data?.body.rows.map((transaction) => (
       <SingleRow transaction={transaction} key={transaction.id} />
-    ));
+      ));
+      
   }
 
   return (

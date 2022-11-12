@@ -12,7 +12,6 @@ import RequireAuth from "./Components/RequireAuth";
 import Persist from "./Components/Persist";
 import Layout from "./Components/Layout/Layout";
 import { TransactionScreen } from "./Screens/TransactionScreen";
-
 import TransactionForm from "./Components/Transactions/TransactionsForm";
 import { BalanceScreen } from "./Screens/BalanceScreen";
 
@@ -27,6 +26,7 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route element={<TransactionLayout />}>
                 <Route path="/" element={<TransactionScreen />} />
+                <Route path="/edit-:id" element={<TransactionForm />} />
                 <Route path="/deposit" element={<TransactionForm />} />
                 <Route path="/pay" element={<TransactionForm />} />
                 <Route path="/balance" element={<BalanceScreen />} />
