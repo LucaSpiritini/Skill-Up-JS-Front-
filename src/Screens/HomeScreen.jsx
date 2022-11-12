@@ -26,10 +26,14 @@ const HomeScreen = () => {
     }
   };
   if (isLoading) {
-    return <Loading/> // TODO change to Loader Spinner
+    return <Loading />; // TODO change to Loader Spinner
+  }
+
+  function toRegister() {
+    navigate("/register");
   }
   return (
-    <div className="my-64">
+    <div>
       <form
         className="flex flex-col w-[80%] md:w-1/2 lg:w-1/3 space-y-6 rounded-lg p-5 mx-auto border-2mb-8"
         onSubmit={handleLogin}
@@ -60,7 +64,13 @@ const HomeScreen = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <div className="flex justify-end pt-4">
+        <div className="flex  justify-around pt-4">
+          <button
+            className="py-2 px-6 border-2 rounded-xl border-white "
+            onClick={toRegister}
+          >
+            Register
+          </button>
           <button className="py-2 px-6 border-2 rounded-xl border-white ">
             Login
           </button>

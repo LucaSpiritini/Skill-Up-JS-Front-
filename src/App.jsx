@@ -11,6 +11,7 @@ import Layout from "./Components/Layout/Layout";
 import { TransactionScreen } from "./Screens/TransactionScreen";
 
 import UserRegister from "./Components/FormUser/UserRegister";
+import UserEdit from "./Components/FormUser/UserEdit";
 import ProfileUser from "./Components/ProfileUser/ProfileUser";
 import TransactionForm from "./Components/Transactions/TransactionsForm";
 
@@ -37,7 +38,8 @@ function App() {
 
 
                 <Route path="/" element={<TransactionForm />} />
-                <Route path={"/profile"} element={<ProfileUser />} />
+                <Route path="/profile" element={<ProfileUser />} />
+                <Route path="/edituser" element={<UserEdit />} />
                 <Route path="/deposit" element={<HomeScreen />} />
                 <Route path="/pay" element={<HomeScreen />} />
 

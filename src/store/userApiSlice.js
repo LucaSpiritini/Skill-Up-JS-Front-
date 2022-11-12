@@ -29,11 +29,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     userEdit: builder.mutation({
-      query: ({ data, id }) => ({
-        url: `/users/${id}`,
-        method: "PUT",
-        body: { ...data },
-      }),
+      query: (data) => {
+        const { id, ...body } = data;
+        console.log(id);
+        return {
+          url: `users/${id}`,
+          method: "PUT",
+          body,
+        };
+      },
     }),
     userRegister: builder.mutation({
       query: (data) => ({
