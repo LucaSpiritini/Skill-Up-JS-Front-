@@ -4,7 +4,7 @@ import React from "react";
 const Boton = (text, color) => {
 
   return (
-    <div>
+    <>
       
       {text.text==="acept"?
       <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 m-2 rounded">acept</button>
@@ -14,7 +14,7 @@ const Boton = (text, color) => {
     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded">edit</button>
   :null}
 
-    </div>
+    </>
   );
 };
 

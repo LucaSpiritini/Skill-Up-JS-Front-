@@ -45,16 +45,24 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...data },
       }),
-
       invalidateTags: [{ type: "transaction", id: "TRANSACTION" }],
-
     }),
+    getAllUser: builder.query({
+      query: (args) => {
+        const {pageUser} = args
+        return {
+          url: `/users?page=${pageUser}`,
+          method: "GET",
+        }
+      }
+    })
   }),
 });
 
 
 export const {
   useBalanceQuery,
+  useGetAllUserQuery,
   useSendMoneyMutation,
   useUserEditMutation,
   useUserRegisterMutation,

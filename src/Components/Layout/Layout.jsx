@@ -12,7 +12,6 @@ const InitialLayout = () => {
     const tokens = localStorage.getItem("jwt");
     if (tokens) {
       dispatch(setCredentials({ token: tokens }));
-      navigate("/");
     }
   }, []);
   return <Outlet />;

@@ -8,10 +8,10 @@ import { NavLink } from "../../utils/NavLink";
 import Hamburger from "./Hamburger";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
-import { logout } from "../../store/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
-
+import { FaAutoprefixer } from "react-icons/fa";
 const NavDesktop = ({ icon, name, path, active }) => {
   return (
     <NavLink to={path} activeClassName={active}>
@@ -24,6 +24,7 @@ const NavDesktop = ({ icon, name, path, active }) => {
 };
 
 export const Navbar = () => {
+  const user = useSelector(selectUser)
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const onLogout = () => {
@@ -38,7 +39,10 @@ export const Navbar = () => {
     { icon: <GiPayMoney />, name: "Pay", path: "/pay" },
     { icon: <FaBalanceScale />, name: "Balance", path: "/balance" },
     { icon: <FiSend />, name: "Send Money", path: "/send" },
+    { icon: <FaAutoprefixer />, name: "Admin", path: "/admin" }
   ];
+
+    let NavNoAdmin = NavDesktopLinks.filter(e=>e.name !== "Admin")
 
   return (
     <>
@@ -50,7 +54,7 @@ export const Navbar = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center space-y-3 text-white fixed w-[200px] h-[250px] left-[50%] top-[5%] ml-[-100px] bg-black rounded-xl"
+          className="flex flex-col items-center space-y-3 text-white fixed w-[200px] left-[50%] top-[5%] ml-[-100px] bg-black rounded-xl"
         >
           <Link onClick={() => setSidebarOpen(false)} to="/transactions">
             Transactions
@@ -73,6 +77,10 @@ export const Navbar = () => {
           <Link onClick={() => setSidebarOpen(false)} to="/transactions">
             Logout
           </Link>
+          {user.roleId === 1 && <Link onClick={() => setSidebarOpen(false)} to="/admin">
+            Admin
+          </Link>}
+          
         </motion.div>
       )}
 
@@ -83,7 +91,7 @@ export const Navbar = () => {
         </div>
 
         <div className="mt-8 flex flex-col flex-1">
-          {NavDesktopLinks.map((link, i) => (
+          {user.roleId === 1 ? NavDesktopLinks.map((link, i) => (
             <NavDesktop
               key={i}
               icon={link.icon}
@@ -91,6 +99,14 @@ export const Navbar = () => {
               path={link.path}
               active={active}
             />
+          )) : NavNoAdmin.map((link,i)=>(
+            <NavDesktop
+            key={i}
+            icon={link.icon}
+            name={link.name}
+            path={link.path}
+            active={active}
+          />
           ))}
           {/* <NavLink to="/" activeClassName={active}>
             <div className="flex items-center pl-6">

@@ -7,6 +7,15 @@ const initialState = transactionAdapter.getInitialState();
 
 export const transactionApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getAllTransaction: builder.query({
+      query: (args) => {
+        const {pageTrans} = args
+        return {
+          url: `/transactions/all?page=${pageTrans}`,
+          method: "GET",
+        }
+      }
+    }),
     createTransaction: builder.mutation({
       query: (initialData) => {
         return {
@@ -66,6 +75,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
 export const {
   useCreateTransactionMutation,
   useGetTransactionsQuery,
+  useGetAllTransactionQuery,
   useEditTransactionMutation,
   useDeleteTransactionMutation,
 } = transactionApiSlice;

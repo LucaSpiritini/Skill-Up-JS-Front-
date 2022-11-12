@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../store/authApiSlice";
 import { setCredentials } from "../store/authSlice";
 import Loading from "../Components/Loading/Loading";
@@ -29,9 +29,9 @@ const HomeScreen = () => {
     return <Loading/> // TODO change to Loader Spinner
   }
   return (
-    <div className="my-64">
+    <div className="h-full flex justify-center items-center">
       <form
-        className="flex flex-col w-[80%] md:w-1/2 lg:w-1/3 space-y-6 rounded-lg p-5 mx-auto border-2mb-8"
+        className="flex flex-col md:w-1/2 lg:w-1/3 space-y-6 rounded-lg p-5 mx-auto border-2 mb-8"
         onSubmit={handleLogin}
       >
         <div className="p-5">
@@ -60,10 +60,13 @@ const HomeScreen = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <div className="flex justify-end pt-4">
-          <button className="py-2 px-6 border-2 rounded-xl border-white ">
+        <div className="flex justify-between pt-4">
+          <button className="py-2 px-6 border-2 rounded-xl border-white">
             Login
           </button>
+          <Link className="py-2 px-6 border-2 rounded-xl border-white" to='/register'>
+            Register
+          </Link>
         </div>
       </form>
     </div>
