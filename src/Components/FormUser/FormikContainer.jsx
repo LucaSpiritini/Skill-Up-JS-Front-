@@ -3,53 +3,64 @@ import React, { useEffect } from "react";
 import FormikControl from "../Form/FormikControl";
 import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   useUserEditMutation,
   useUserRegisterMutation,
 } from "../../store/userApiSlice";
-import { setCredentials } from "../../store/authSlice";
+import { selectUser, setCredentials } from "../../store/authSlice";
 import alert from "../Alert/Alert";
 
-export default function FormikContainer(action) {
+export default function FormikContainer({ action }) {
+  const user = useSelector(selectUser);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [userRegister, { isLoading: cargando, isError, error }] =
+  const [userRegister, { isError: isErrorRegister, error: errorRegister }] =
     useUserRegisterMutation();
-  const [userEdit, { isLoading: cargando2 }] = useUserEditMutation();
+  const [userEdit, { isSuccess, isError: isErrorEdit, error: errorEdit }] =
+    useUserEditMutation();
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: user ? user.firstName : "",
+    lastName: user ? user.lastName : "",
+    email: user ? user.email : "",
     password: "",
-    avatar: "",
+    avatar: user ? user.avatar : "",
   };
 
-  useEffect(() => {
-    // <Alert2 title="Error" text="Error email already exist" type="error" />;
-    // <Alert title={"Error"} text={"Error email already exist"} type={"error"} />;
-  }, []);
-
-  const validationSchema = Yup.object({
-    firstName: Yup.string().required(" Required"),
-    lastName: Yup.string().required(" Required"),
-    email: Yup.string().email().required(" Required"),
-    password: Yup.string().required(" Required"),
-  });
-  if (isError) {
-    if (error.originalStatus === 404) {
+  if (isErrorRegister) {
+    if (errorRegister.originalStatus === 404) {
       alert("Error", "Error email already exist", "error");
+    } else {
+      alert("Error", "Error", "error");
+    }
+  } else if (isErrorEdit) {
+    if (errorEdit.originalStatus === 404) {
+      alert("Error", errorEdit, "error");
     } else {
       alert("Error", "Error", "error");
     }
   }
 
+  const validationSchema = Yup.object({
+    firstName: Yup.string().required(" Required"),
+    lastName: Yup.string().required(" Required"),
+    email: Yup.string().email().required(" Required"),
+    password: action === "register" && Yup.string().required(" Required"),
+  });
+
+  if (isSuccess && !errorEdit) {
+    console.log(isSuccess, isErrorEdit);
+    alert("success", "Modified data", "success");
+  }
+
   const onSubmit = async (values) => {
     try {
       let data;
+
       if (action === "edit") {
-        data = await userEdit(values).unwrap();
+        data = await userEdit({ id: user.id, values }).unwrap();
       } else {
         data = await userRegister(values).unwrap();
       }
@@ -60,6 +71,11 @@ export default function FormikContainer(action) {
       console.log(err);
     }
   };
+
+  function goBack() {
+    if (action === "edit") return navigate("/profile");
+    if (action === "register") return navigate("/");
+  }
   return (
     <Formik
       initialValues={initialValues}
@@ -69,7 +85,9 @@ export default function FormikContainer(action) {
       {(formik) => (
         <Form className="flex flex-col w-[80%] md:w-1/2 lg:w-1/3 space-y-2 rounded-lg p-0 mx-auto border-2mb-8">
           <div className="p-5">
-            <h2 className="text-center text-xl md:text-4xl">Register</h2>
+            <h2 className="text-center text-xl md:text-4xl">
+              {user?.firstName ? "Edit User" : "Register"}
+            </h2>
           </div>
           <div className="shadow appearance-none border-b rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             <FormikControl
@@ -121,16 +139,24 @@ export default function FormikContainer(action) {
           </div>
           <button
             type="submit"
-            // disabled={!formik.isValid}
+            disabled={!formik.isValid}
             className="h-10 px-6 font-semibold rounded-full bg-gray-400 text-gray-700"
           >
             Submit
           </button>
+          {action === "register" && (
+            <button
+              type="reset"
+              className="h-10 px-6 font-semibold rounded-full bg-gray-400 text-gray-700"
+            >
+              Reset
+            </button>
+          )}
           <button
-            type="reset"
             className="h-10 px-6 font-semibold rounded-full bg-gray-400 text-gray-700"
+            onClick={goBack}
           >
-            Reset
+            Back
           </button>
         </Form>
       )}
