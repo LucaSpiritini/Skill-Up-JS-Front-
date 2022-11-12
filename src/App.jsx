@@ -27,10 +27,8 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route element={<TransactionLayout />}>
                 <Route path="/" element={<TransactionScreen />} />
-
                 <Route path="/deposit" element={<TransactionForm />} />
                 <Route path="/pay" element={<TransactionForm />} />
-
                 <Route path="/balance" element={<BalanceScreen />} />
                 <Route path="/send" element={<TransactionForm />} />
               </Route>
