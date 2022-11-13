@@ -74,7 +74,10 @@ export const Navbar = () => {
           <Link onClick={() => setSidebarOpen(false)} to="/profile">
             Profile
           </Link>
-          <button onClick={onLogout}>Logout</button>
+          {user.roleId === 1 && <Link onClick={() => setSidebarOpen(false)} to="/admin">
+            Admin
+          </Link>}
+          <button onClick={onLogout}>Logout</button>  
         </motion.div>
       )}
 

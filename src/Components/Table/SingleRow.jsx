@@ -43,7 +43,7 @@ export const SingleRow = ({ transaction }) => {
       <td>
         <ButtonComponent
           icon={<AiOutlineEdit />}
-          textBg={transaction?.toUserId ? "bg-gray-400" : "bg-gray-900"}
+          textBg={transaction?.toUserId ? "bg-gray-400 cursor-pointer" : "bg-gray-900 cursor-pointer"}
           textColor="text-white"
           onClick={edit}
           disabled={transaction?.toUserId ? true : false}
