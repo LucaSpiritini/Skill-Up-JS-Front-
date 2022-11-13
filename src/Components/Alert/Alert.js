@@ -1,10 +1,11 @@
 import Swal from "sweetalert2";
 
-export default function Alert(title, text, type) {
+export default function Alert(title, text, type, actionText, cb) {
+  const bgColor =
+    "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )";
   if (type !== "question") {
     Swal.fire({
-      background:
-        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      background: bgColor,
       color: "white",
       title: title,
       text: text,
@@ -12,26 +13,23 @@ export default function Alert(title, text, type) {
     });
   } else {
     Swal.fire({
-      background:
-        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      background: bgColor,
       color: "white",
       title: title,
       text: text,
+      icon: type,
       showCancelButton: true,
       confirmButtonText: "Confirm",
     }).then(({ isConfirmed }) => {
       if (isConfirmed) {
-        // dispatch();
-
         Swal.fire({
-          background:
-            "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+          background: bgColor,
           color: "white",
-          title: "",
-          text: "",
+          title: "Success",
+          text: actionText,
           icon: "success",
         });
-        // navigateTo("/");
+        cb();
       }
     });
   }

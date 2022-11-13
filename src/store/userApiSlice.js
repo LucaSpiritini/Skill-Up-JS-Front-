@@ -48,11 +48,18 @@ export const userApiSlice = apiSlice.injectEndpoints({
 
       invalidateTags: [{ type: "transaction", id: "TRANSACTION" }],
     }),
+    userDelete: builder.mutation({
+      query: (id) => ({
+        url: `users/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
 export const {
   useBalanceQuery,
+  useUserDeleteMutation,
   useSendMoneyMutation,
   useUserEditMutation,
   useUserRegisterMutation,

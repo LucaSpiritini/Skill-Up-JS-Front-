@@ -40,7 +40,7 @@ export default function FormikContainer({ action }) {
       alert("Error", errorEdit.data.error, "error");
     } else {
       console.log("error", errorEdit.status);
-      alert("Error", "Erssror", "error");
+      alert("Error", "Error", "error");
     }
   }
 
@@ -51,7 +51,7 @@ export default function FormikContainer({ action }) {
     password: action === "register" && Yup.string().required(" Required"),
   });
 
-  if (isSuccess && !errorEdit) {
+  if (isSuccess && !errorEdit?.status) {
     console.log(isSuccess, isErrorEdit);
     alert("success", "Modified data", "success");
   }
