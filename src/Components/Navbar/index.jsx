@@ -24,7 +24,7 @@ const NavDesktop = ({ icon, name, path, active }) => {
 };
 
 export const Navbar = () => {
-  const user = useSelector(selectUser)
+  const user = useSelector(selectUser);
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const onLogout = () => {
@@ -39,10 +39,10 @@ export const Navbar = () => {
     { icon: <GiPayMoney />, name: "Pay", path: "/pay" },
     { icon: <FaBalanceScale />, name: "Balance", path: "/balance" },
     { icon: <FiSend />, name: "Send Money", path: "/send" },
-    { icon: <FaAutoprefixer />, name: "Admin", path: "/admin" }
+    { icon: <FaAutoprefixer />, name: "Admin", path: "/admin" },
   ];
 
-    let NavNoAdmin = NavDesktopLinks.filter(e=>e.name !== "Admin")
+  let NavNoAdmin = NavDesktopLinks.filter((e) => e.name !== "Admin");
 
   return (
     <>
@@ -54,7 +54,7 @@ export const Navbar = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center space-y-3 text-white fixed w-[200px] left-[50%] top-[5%] ml-[-100px] bg-black rounded-xl"
+          className="flex flex-col items-center space-y-3 text-white fixed w-[200px] h-[250px] left-[50%] top-[5%] ml-[-100px] bg-gray-900 rounded-xl"
         >
           <Link onClick={() => setSidebarOpen(false)} to="/">
             Transactions
@@ -88,23 +88,25 @@ export const Navbar = () => {
         </div>
 
         <div className="mt-8 flex flex-col flex-1">
-          {user.roleId === 1 ? NavDesktopLinks.map((link, i) => (
-            <NavDesktop
-              key={i}
-              icon={link.icon}
-              name={link.name}
-              path={link.path}
-              active={active}
-            />
-          )) : NavNoAdmin.map((link,i)=>(
-            <NavDesktop
-            key={i}
-            icon={link.icon}
-            name={link.name}
-            path={link.path}
-            active={active}
-          />
-          ))}
+          {user.roleId === 1
+            ? NavDesktopLinks.map((link, i) => (
+                <NavDesktop
+                  key={i}
+                  icon={link.icon}
+                  name={link.name}
+                  path={link.path}
+                  active={active}
+                />
+              ))
+            : NavNoAdmin.map((link, i) => (
+                <NavDesktop
+                  key={i}
+                  icon={link.icon}
+                  name={link.name}
+                  path={link.path}
+                  active={active}
+                />
+              ))}
         </div>
         <hr className="my-4 mx-10 h-[2px] bg-gray-900 " />
         <div className="flex flex-col mb-12">

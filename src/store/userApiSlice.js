@@ -49,7 +49,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
     getAllUser: builder.query({
       query: (args) => {
-        const {pageUser} = args
+        const { pageUser } = args;
         return {
           url: `/users?page=${pageUser}`,
           method: "GET",
@@ -85,6 +85,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
         { type: "User", id: arg.id },
       ],
     })
+        };
+      },
+    }),
+    userDelete: builder.mutation({
+      query: (id) => ({
+        url: `users/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -93,6 +102,7 @@ export const {
   useGetUserQuery,
   useDeleteUserMutation,
   useGetAllUserQuery,
+  useUserDeleteMutation,
   useSendMoneyMutation,
   useUserEditMutation,
   useUserRegisterMutation,
