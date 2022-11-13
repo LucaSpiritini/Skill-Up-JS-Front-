@@ -34,6 +34,10 @@ export default function TransactionForm(props) {
     toEmailUser: "",
   };
 
+  const editInitialValues = {
+    description: pathname.split("-")[0] === "/edit" ? state.description : "",
+  };
+
   if (isLoading || isLoadingSending || isLoadingEdit) {
     return <Loading />;
   }
@@ -46,7 +50,7 @@ export default function TransactionForm(props) {
     description: Yup.string().required(" Required"),
   });
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
     try {
       if (pathname.split("-")[0] === "/edit") {
         await editTransaction({
@@ -65,13 +69,8 @@ export default function TransactionForm(props) {
           description: description.value,
           amount: amount.value,
           currency: currency.value ? currency.value : "pesos",
-
           userId: user.user.id,
           categoryId: pathname === "/deposit" ? 1 : 2,
-          toUserId:
-            pathname === "/send"
-              ? toEmailUser.value
-              : initialValues.toUserId.value,
         }).unwrap();
       }
       navigate("/");
@@ -142,7 +141,7 @@ export default function TransactionForm(props) {
       ) : (
         <div>
           <Formik
-            initialValues={initialValues}
+            initialValues={editInitialValues}
             validationSchema={editValidationSchema}
             onSubmit={onSubmit}
           >
