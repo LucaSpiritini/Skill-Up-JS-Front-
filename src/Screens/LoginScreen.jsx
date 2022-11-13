@@ -18,7 +18,6 @@ export const LoginScreen = () => {
     email: "",
     password: "",
   };
-  console.log(error?.originalStatus);
   if (isError && error.originalStatus === 404) {
     alert("Error", "Password not match!", "error");
   }

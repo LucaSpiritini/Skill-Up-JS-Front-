@@ -29,6 +29,7 @@ function App() {
               <Route path="/admin" element={<Admin />} />
               <Route element={<TransactionLayout />}>
                 <Route path="/" element={<TransactionScreen />} />
+                <Route path="/edituser" element={<UserEdit />} />
                 <Route path="/edit-:id" element={<TransactionForm />} />
                 <Route path="/deposit" element={<TransactionForm />} />
                 <Route path="/pay" element={<TransactionForm />} />
