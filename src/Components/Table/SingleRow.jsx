@@ -3,7 +3,6 @@ import format from "date-format";
 import ButtonComponent from "../ButtonComponent";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineEdit } from "react-icons/ai";
-import { BsFillTrashFill } from "react-icons/bs";
 export const SingleRow = ({ transaction }) => {
   const navigate = useNavigate();
   const parseDate = (date) => {
@@ -11,7 +10,6 @@ export const SingleRow = ({ transaction }) => {
     return format("dd/MM/yy", newDate);
   };
   const edit = () => {
-    console.log(transaction);
     navigate(`/edit-${transaction.id}`, {
       state: { id: transaction?.id, description: transaction?.description },
     });
@@ -45,9 +43,10 @@ export const SingleRow = ({ transaction }) => {
       <td>
         <ButtonComponent
           icon={<AiOutlineEdit />}
-          textBg="bg-gray-900"
+          textBg={transaction?.toUserId ? "bg-gray-400" : "bg-gray-900"}
           textColor="text-white"
           onClick={edit}
+          disabled={transaction?.toUserId ? true : false}
         />
       </td>
     </tr>

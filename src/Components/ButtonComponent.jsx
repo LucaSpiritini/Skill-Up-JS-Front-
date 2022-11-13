@@ -6,12 +6,18 @@ const ButtonComponent = ({
   textColor = "text-black",
   textBg = "bg-white",
   onClick,
+  disabled,
 }) => {
+  console.log(disabled);
   return (
-    <div className={` flex justify-center flex-1`} onClick={onClick}>
-      <p className={`${textColor} ${textBg} py-2 px-3 rounded-xl `}>
+    <div className={` flex justify-center flex-1`}>
+      <button
+        className={`${textColor} ${textBg} py-2 px-3 rounded-xl `}
+        disabled={disabled}
+        onClick={onClick}
+      >
         {text ? text : icon}
-      </p>
+      </button>
     </div>
   );
 };

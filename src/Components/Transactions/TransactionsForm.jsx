@@ -10,6 +10,8 @@ import {
 } from "../../store/transactionApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useSendMoneyMutation } from "../../store/userApiSlice";
+import Loading from "../Loading/Loading";
 
 export default function TransactionForm(props) {
   const navigate = useNavigate();
@@ -17,20 +19,24 @@ export default function TransactionForm(props) {
     useCreateTransactionMutation();
   const [editTransaction, { isLoading: isLoadingEdit }] =
     useEditTransactionMutation();
+
+  const [sendMoney, { isLoading: isLoadingSending }] = useSendMoneyMutation();
   const user = useSelector((state) => state.auth);
   const { pathname, state } = useLocation();
 
-  console.log(props);
   const initialValues = {
     description: pathname.split("-")[0] === "/edit" ? state.description : "",
     amount: "",
-    currency: "",
+    currency: "pesos",
     date: "",
     userId: user.user.id,
     categoryId: pathname === "/deposit" ? 1 : 2,
-    toUserId: "",
+    toEmailUser: "",
   };
 
+  if (isLoading || isLoadingSending || isLoadingEdit) {
+    return <Loading />;
+  }
   const validationSchema = Yup.object({
     description: Yup.string().required(" Required"),
     amount: Yup.number().required(" Required").min(0),
@@ -47,16 +53,25 @@ export default function TransactionForm(props) {
           id: state.id,
           description: description.value,
         }).unwrap();
+      } else if (pathname === "/send") {
+        await sendMoney({
+          description: description.value,
+          amount: amount.value,
+          userId: user.user.id,
+          toUserEmail: toEmailUser.value,
+        }).unwrap;
       } else {
         await createTransaction({
           description: description.value,
           amount: amount.value,
-          currency: currency.value,
+          currency: currency.value ? currency.value : "pesos",
 
           userId: user.user.id,
           categoryId: pathname === "/deposit" ? 1 : 2,
           toUserId:
-            pathname === "/send" ? toUserId.vale : initialValues.toUserId.value,
+            pathname === "/send"
+              ? toEmailUser.value
+              : initialValues.toUserId.value,
         }).unwrap();
       }
       navigate("/");
@@ -93,30 +108,33 @@ export default function TransactionForm(props) {
                   name="amount"
                 />
               </div>
-              <Field
-                name="currency"
-                id="currency"
-                as="select"
-                type="select"
-                control="select"
-                className="shadow appearance-none border-b rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              >
-                <option value="pesos">Pesos</option>
-                <option value="dolares">Dolares</option>
-                <option value="euros">Euros</option>
-              </Field>
+              {pathname !== "/send" ? (
+                <Field
+                  name="currency"
+                  id="currency"
+                  as="select"
+                  type="select"
+                  control="select"
+                  className="shadow appearance-none border-b rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                >
+                  <option value="pesos">Pesos</option>
+                  <option value="dolares">Dolares</option>
+                  <option value="euros">Euros</option>
+                </Field>
+              ) : null}
+
               {pathname === "/send" ? (
                 <div className="shadow appearance-none border-b rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                   <FormikControl
                     control="input"
-                    type="number"
-                    placeholder="To user "
-                    name="toUserId"
+                    type="email"
+                    placeholder="User Email "
+                    name="toEmailUser"
                   />
                 </div>
               ) : null}
               <button type="submit" disabled={!formik.isValid}>
-                Create
+                {pathname === "/send" ? <>Send Money</> : <>Create</>}
               </button>
             </Form>
           )}
