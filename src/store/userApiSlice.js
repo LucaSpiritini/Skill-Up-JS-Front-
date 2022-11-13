@@ -29,11 +29,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     userEdit: builder.mutation({
-      query: ({ data, id }) => ({
-        url: `/users/${id}`,
-        method: "PUT",
-        body: { ...data },
-      }),
+      query: (data) => {
+        const { id, ...body } = data;
+        console.log(id);
+        return {
+          url: `users/${id}`,
+          method: "PUT",
+          body,
+        };
+      },
     }),
     userRegister: builder.mutation({
       query: (data) => ({
@@ -41,14 +45,23 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...data },
       }),
-
       invalidateTags: [{ type: "transaction", id: "TRANSACTION" }],
     }),
+    getAllUser: builder.query({
+      query: (args) => {
+        const {pageUser} = args
+        return {
+          url: `/users?page=${pageUser}`,
+          method: "GET",
+        }
+      }
+    })
   }),
 });
 
 export const {
   useBalanceQuery,
+  useGetAllUserQuery,
   useSendMoneyMutation,
   useUserEditMutation,
   useUserRegisterMutation,

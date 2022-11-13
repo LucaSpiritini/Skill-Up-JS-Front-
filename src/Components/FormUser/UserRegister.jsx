@@ -4,9 +4,6 @@ import { useRegisterMutation } from "../../store/authApiSlice";
 import FormikContainer from "./FormikContainer";
 
 function UserRegister() {
-  const [register, { isLoading, isSuccess, isError, error }] =
-    useRegisterMutation();
-  // console.log(isError);
   return (
     <div>
       <h1 className="text-center text-2xl md:text-5xl my-12">Alkemy Bank</h1>
