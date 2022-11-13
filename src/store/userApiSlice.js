@@ -55,6 +55,33 @@ export const userApiSlice = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
+      provideTags: (result, error, arg) => {
+        if (result?.ids) {
+          return [
+            { type: "User", id: "USERS" },
+            ...result.ids.map((id) => ({ type: "User", id })),
+          ];
+        } else return [{ type: "User", id: "USERS" }];
+      },
+    }),
+    getUser: builder.query({
+      query: (args) => {
+        const { id } = args;
+        return {
+          url: `/users/${id}`,
+          method: "GET",
+        };
+      },
+    }),
+    deleteUser: builder.mutation({
+      query: (args) => {
+        const { id } = args;
+        return {
+          url: `/users/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
     }),
     userDelete: builder.mutation({
       query: (id) => ({
@@ -67,6 +94,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useBalanceQuery,
+  useGetUserQuery,
+  useDeleteUserMutation,
   useGetAllUserQuery,
   useUserDeleteMutation,
   useSendMoneyMutation,
