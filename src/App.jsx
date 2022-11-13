@@ -16,6 +16,7 @@ import ProfileUser from "./Components/ProfileUser/ProfileUser";
 import TransactionForm from "./Components/Transactions/TransactionsForm";
 
 import { BalanceScreen } from "./Screens/BalanceScreen";
+import AdminUserEdit from "./Components/Admin/AdminUserEdit";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route element={<Persist />}>
             <Route element={<RequireAuth />}>
                 <Route path="/admin" element={<Admin/>}/>
+                <Route path="/admin/userEdit:id" element={<AdminUserEdit/>}/>
               <Route element={<TransactionLayout />}>
                 <Route path="/" element={<TransactionScreen />} />
                 <Route path="/edit-:id" element={<TransactionForm />} />

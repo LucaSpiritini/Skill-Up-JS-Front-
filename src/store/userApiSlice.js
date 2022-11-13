@@ -55,12 +55,32 @@ export const userApiSlice = apiSlice.injectEndpoints({
           method: "GET",
         }
       }
+    }),
+    getUser : builder.query({
+      query: (args) => {
+        const {id} = args
+        return {
+          url: `/users/${id}`,
+          method: "GET",
+        }
+      }
+    }),
+    deleteUser : builder.mutation({
+      query: (args) => {
+        const {id} = args
+        return {
+          url: `/users/${id}`,
+          method: "DELETE"
+        }
+      }
     })
   }),
 });
 
 export const {
   useBalanceQuery,
+  useGetUserQuery,
+  useDeleteUserMutation,
   useGetAllUserQuery,
   useSendMoneyMutation,
   useUserEditMutation,

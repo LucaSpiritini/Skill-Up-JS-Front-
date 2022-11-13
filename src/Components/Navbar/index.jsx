@@ -54,11 +54,7 @@ export const Navbar = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-<<<<<<< HEAD
           className="flex flex-col items-center space-y-3 text-white fixed w-[200px] left-[50%] top-[5%] ml-[-100px] bg-black rounded-xl"
-=======
-          className="flex flex-col items-center space-y-3 text-white fixed w-[200px] h-[250px] left-[50%] top-[5%] ml-[-100px] bg-gray-900 rounded-xl"
->>>>>>> fc70c7ef41706c23205372f122720cf09c28a1d8
         >
           <Link onClick={() => setSidebarOpen(false)} to="/">
             Transactions
@@ -78,17 +74,10 @@ export const Navbar = () => {
           <Link onClick={() => setSidebarOpen(false)} to="/profile">
             Profile
           </Link>
-<<<<<<< HEAD
-          <Link onClick={() => setSidebarOpen(false)} to="/transactions">
-            Logout
-          </Link>
           {user.roleId === 1 && <Link onClick={() => setSidebarOpen(false)} to="/admin">
             Admin
           </Link>}
-          
-=======
-          <button onClick={onLogout}>Logout</button>
->>>>>>> fc70c7ef41706c23205372f122720cf09c28a1d8
+          <button onClick={onLogout}>Logout</button>  
         </motion.div>
       )}
 
