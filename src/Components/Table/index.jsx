@@ -12,7 +12,6 @@ export const Table = ({ children }) => {
               <th>Amount</th>
               <th>Date</th>
               <th>Edit</th>
-              <th>Delete</th>
             </tr>
           </thead>
           <tbody>{children}</tbody>

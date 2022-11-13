@@ -6,24 +6,28 @@ import FormikControl from "../Form/FormikControl";
 import {
   transactionApiSlice,
   useCreateTransactionMutation,
+  useEditTransactionMutation,
 } from "../../store/transactionApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-export default function TransactionForm() {
+export default function TransactionForm(props) {
   const navigate = useNavigate();
   const [createTransaction, { isLoading, isSuccess, isError, error }] =
     useCreateTransactionMutation();
+  const [editTransaction, { isLoading: isLoadingEdit }] =
+    useEditTransactionMutation();
   const user = useSelector((state) => state.auth);
-  const pathName = useLocation().pathname;
+  const { pathname, state } = useLocation();
 
+  console.log(props);
   const initialValues = {
-    description: "",
+    description: pathname.split("-")[0] === "/edit" ? state.description : "",
     amount: "",
     currency: "",
     date: "",
     userId: user.user.id,
-    categoryId: pathName === "/deposit" ? 1 : 2,
+    categoryId: pathname === "/deposit" ? 1 : 2,
     toUserId: "",
   };
 
@@ -32,20 +36,29 @@ export default function TransactionForm() {
     amount: Yup.number().required(" Required").min(0),
   });
 
+  const editValidationSchema = Yup.object({
+    description: Yup.string().required(" Required"),
+  });
+
   const onSubmit = async () => {
-    console.log("currency", currency.value);
     try {
-      const data = await createTransaction({
-        description: description.value,
-        amount: amount.value,
-        currency: currency.value,
+      if (pathname.split("-")[0] === "/edit") {
+        await editTransaction({
+          id: state.id,
+          description: description.value,
+        }).unwrap();
+      } else {
+        await createTransaction({
+          description: description.value,
+          amount: amount.value,
+          currency: currency.value,
 
-        userId: user.user.id,
-        categoryId: pathName === "/deposit" ? 1 : 2,
-        toUserId:
-          pathName === "/send" ? toUserId.vale : initialValues.toUserId.value,
-      }).unwrap();
-
+          userId: user.user.id,
+          categoryId: pathname === "/deposit" ? 1 : 2,
+          toUserId:
+            pathname === "/send" ? toUserId.vale : initialValues.toUserId.value,
+        }).unwrap();
+      }
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -54,9 +67,9 @@ export default function TransactionForm() {
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
-      {pathName === "/pay" ||
-      pathName === "/send" ||
-      pathName === "/deposit" ? (
+      {pathname === "/pay" ||
+      pathname === "/send" ||
+      pathname === "/deposit" ? (
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -92,7 +105,7 @@ export default function TransactionForm() {
                 <option value="dolares">Dolares</option>
                 <option value="euros">Euros</option>
               </Field>
-              {pathName === "/send" ? (
+              {pathname === "/send" ? (
                 <div className="shadow appearance-none border-b rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                   <FormikControl
                     control="input"
@@ -103,14 +116,35 @@ export default function TransactionForm() {
                 </div>
               ) : null}
               <button type="submit" disabled={!formik.isValid}>
-                Submit
+                Create
               </button>
             </Form>
           )}
         </Formik>
       ) : (
         <div>
-          <h1>editar transaccion</h1>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={editValidationSchema}
+            onSubmit={onSubmit}
+          >
+            {(formik) => (
+              <Form className="flex flex-col items-center bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 space-y-3">
+                <div className="shadow appearance-none border-b rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                  <FormikControl
+                    control="input"
+                    type="text"
+                    placeholder="Description "
+                    name="description"
+                  />
+                </div>
+
+                <button type="submit" disabled={!formik.isValid}>
+                  Edit
+                </button>
+              </Form>
+            )}
+          </Formik>
         </div>
       )}
     </div>

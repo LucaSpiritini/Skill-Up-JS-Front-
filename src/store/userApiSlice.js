@@ -14,10 +14,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
         providesTags: (result, error, arg) => {
           if (result?.ids) {
             return [
-              { type: "User", id: "USER" },
-              ...result.ids.map((id) => ({ type: "User", id })),
+              { type: "Transaction", id: "TRANSACTIONS" },
+              ...result.ids.map((id) => ({ type: "Transaction", id })),
             ];
-          } else return [{ type: "User", id: "USER" }];
+          } else return [{ type: "Transaction", id: "TRANSACTIONS" }];
         },
       }),
     }),
