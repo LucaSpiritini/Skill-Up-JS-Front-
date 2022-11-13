@@ -11,11 +11,12 @@ import Loading from "../Components/Loading/Loading";
 export const TransactionScreen = () => {
   const filterRef = useRef("");
   const [page, setPage] = useState(0);
+  const [currency, setCurrency] = useState("pesos");
   const [description, setDescription] = useState("");
 
   const { data, isLoading, isError, error, isSuccess } =
     useGetTransactionsQuery(
-      { page, description },
+      { page, description, currency },
       { refetchOnMountOrArgChange: true }
     );
 
@@ -51,10 +52,24 @@ export const TransactionScreen = () => {
             ref={filterRef}
             className="bg-[#F0F0F0] w-full rounded-lg p-2 outline-none"
           />
-          <button className="bg-gray-900 text-white rounded-r-xl py-2 px-4">
+          <button className="bg-gray-900 text-white py-2 rounded-r-xl px-4 flex-1">
             Search
           </button>
         </form>
+        <div className="flex items-center justify-end">
+          <label htmlFor="currency">Currency:</label>
+          <select
+            id="currency"
+            name="currency"
+            value={currency}
+            className="py-3 outline-none"
+            onChange={(e) => setCurrency(e.target.value)}
+          >
+            <option value="pesos">Pesos</option>
+            <option value="dolares">Dolares</option>
+            <option value="euros">Euros</option>
+          </select>
+        </div>
 
         <Table>{content}</Table>
         <div className="flex justify-end">

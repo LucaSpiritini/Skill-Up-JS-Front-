@@ -5,8 +5,8 @@ import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <div className="md:h-full">
-      <div className=" md:flex md:h-full md:mb-24">
+    <div className="md:h-screen ">
+      <div className=" md:flex md:h-full md:mb-24 mb-auto">
         <Navbar />
 
         <div className="flex flex-col w-full">

@@ -14,10 +14,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
         providesTags: (result, error, arg) => {
           if (result?.ids) {
             return [
-              { type: "User", id: "USER" },
-              ...result.ids.map((id) => ({ type: "User", id })),
+              { type: "Transaction", id: "TRANSACTIONS" },
+              ...result.ids.map((id) => ({ type: "Transaction", id })),
             ];
-          } else return [{ type: "User", id: "USER" }];
+          } else return [{ type: "Transaction", id: "TRANSACTIONS" }];
         },
       }),
     }),
@@ -45,9 +45,17 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...data },
       }),
-
       invalidateTags: [{ type: "transaction", id: "TRANSACTION" }],
     }),
+    getAllUser: builder.query({
+      query: (args) => {
+        const {pageUser} = args
+        return {
+          url: `/users?page=${pageUser}`,
+          method: "GET",
+        }
+      }
+    })
     userDelete: builder.mutation({
       query: (id) => ({
         url: `users/${id}`,
@@ -59,6 +67,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useBalanceQuery,
+  useGetAllUserQuery,
   useUserDeleteMutation,
   useSendMoneyMutation,
   useUserEditMutation,

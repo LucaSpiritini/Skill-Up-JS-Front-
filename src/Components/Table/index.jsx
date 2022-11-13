@@ -3,8 +3,8 @@ import React from "react";
 export const Table = ({ children }) => {
   return (
     <>
-      <div className="mx-auto mt-16 rounded-lg p-1 md:p-2">
-        <table className="table-layout border-separate  w-full">
+      <div className="mx-auto rounded-lg p-1 md:p-2">
+        <table className="table-layout border-separate w-full">
           <thead className="text-center">
             <tr>
               <th>Nº</th>
@@ -12,7 +12,6 @@ export const Table = ({ children }) => {
               <th>Amount</th>
               <th>Date</th>
               <th>Edit</th>
-              <th>Delete</th>
             </tr>
           </thead>
           <tbody>{children}</tbody>
