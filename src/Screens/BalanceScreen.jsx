@@ -24,7 +24,6 @@ export const Stadistics = ({ income, outcome }) => {
 };
 
 const SingleBalance = ({ currency, balance, income, outcome }) => {
-  if (!income || !outcome) return <p>There is no balance in {currency}</p>;
   let content = (
     <div className="flex flex-col">
       <h3 className="text-2xl text-center">
@@ -60,10 +59,6 @@ export const BalanceScreen = () => {
     console.log(error);
   }
 
-  if (isSuccess) {
-    console.log(data.body);
-    const { incomePesos, outcomePesos } = data.body;
-  }
   return (
     <div className="flex flex-col mx-auto bg-white w-[95%] md:w-[80%] rounded-lg">
       <div className="m-5 md:m-12">
