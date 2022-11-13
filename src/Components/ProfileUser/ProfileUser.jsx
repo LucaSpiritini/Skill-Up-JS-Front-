@@ -1,11 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectUser } from "../../store/authSlice";
 import { useUserDeleteMutation } from "../../store/userApiSlice";
 import alert from "../Alert/Alert";
+import { logout, selectUser } from "../../store/authSlice";
 
 export default function ProfileUser() {
+  const dispatch = useDispatch();
   const [userDelete] = useUserDeleteMutation();
   const user = useSelector(selectUser);
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function ProfileUser() {
   }
   function navigateto() {
     userDelete(user.id);
+    dispatch(logout());
     navigate("/login");
   }
   function deleteUser(e) {

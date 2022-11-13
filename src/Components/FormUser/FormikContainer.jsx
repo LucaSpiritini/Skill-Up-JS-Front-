@@ -22,15 +22,15 @@ export default function FormikContainer({ action }) {
     useUserEditMutation();
 
   const initialValues = {
-    firstName: user ? user.firstName : "",
-    lastName: user ? user.lastName : "",
-    email: user ? user.email : "",
+    firstName: action === "edit" ? user.firstName : "",
+    lastName: action === "edit" ? user.lastName : "",
+    email: action === "edit" ? user.email : "",
     password: "",
-    avatar: user ? user.avatar : "",
+    avatar: action === "edit" ? user.avatar : "",
   };
 
   if (
-    (isErrorRegister && errorRegister.originalStatus === 404) ||
+    (isErrorRegister && errorRegister.status === 404) ||
     (isErrorEdit && errorEdit.status === 404)
   ) {
     alert("Error", "Error email already exist", "error");
