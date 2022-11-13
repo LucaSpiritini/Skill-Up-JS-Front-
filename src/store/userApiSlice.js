@@ -53,7 +53,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         return {
           url: `/users?page=${pageUser}`,
           method: "GET",
-        }
+        };
       },
       provideTags: (result, error, arg) => {
         if (result?.ids) {
@@ -64,29 +64,24 @@ export const userApiSlice = apiSlice.injectEndpoints({
         } else return [{ type: "User", id: "USERS" }];
       },
     }),
-    getUser : builder.query({
+    getUser: builder.query({
       query: (args) => {
-        const {id} = args
+        const { id } = args;
         return {
           url: `/users/${id}`,
           method: "GET",
-        }
-      }
-    }),
-    deleteUser : builder.mutation({
-      query: (args) => {
-        const {id} = args
-        return {
-          url: `/users/${id}`,
-          method: "DELETE"
-        }
-      },
-      invalidatesTags: (result, error, arg) => [
-        { type: "User", id: arg.id },
-      ],
-    })
         };
       },
+    }),
+    deleteUser: builder.mutation({
+      query: (args) => {
+        const { id } = args;
+        return {
+          url: `/users/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: (result, error, arg) => [{ type: "User", id: arg.id }],
     }),
     userDelete: builder.mutation({
       query: (id) => ({
