@@ -54,7 +54,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
           url: `/users?page=${pageUser}`,
           method: "GET",
         }
-      }
+      },
+      provideTags: (result, error, arg) => {
+        if (result?.ids) {
+          return [
+            { type: "User", id: "USERS" },
+            ...result.ids.map((id) => ({ type: "User", id })),
+          ];
+        } else return [{ type: "User", id: "USERS" }];
+      },
     }),
     getUser : builder.query({
       query: (args) => {
@@ -72,7 +80,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
           url: `/users/${id}`,
           method: "DELETE"
         }
-      }
+      },
+      invalidatesTags: (result, error, arg) => [
+        { type: "User", id: arg.id },
+      ],
     })
   }),
 });

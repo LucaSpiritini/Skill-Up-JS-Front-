@@ -18,7 +18,7 @@ function Admin() {
       { pageTrans },
       { refetchOnMountOrArgChange: true }
     );
-  const [deleteUser] = useDeleteUserMutation()
+  const [deleteUser] = useDeleteUserMutation({ refetchOnMountOrArgChange: true })
   const { data: users, isSuccess: Success } = useGetAllUserQuery(
     { pageUser },
     { refetchOnMountOrArgChange: true }
@@ -34,6 +34,7 @@ function Admin() {
   };
   const deleteUs = async (id) => {
     deleteUser({id})
+    window.location.reload()
   }  
 
   return (
