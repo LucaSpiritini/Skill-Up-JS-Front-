@@ -6,8 +6,7 @@ import { useUserDeleteMutation } from "../../store/userApiSlice";
 import alert from "../Alert/Alert";
 
 export default function ProfileUser() {
-  const [userDelete, { isError: isErrorRegister, error: errorRegister }] =
-    useUserDeleteMutation();
+  const [userDelete] = useUserDeleteMutation();
   const user = useSelector(selectUser);
   const navigate = useNavigate();
 
@@ -15,7 +14,7 @@ export default function ProfileUser() {
     navigate("/edituser");
   }
   function navigateto() {
-    userDelete({ id: user.id });
+    userDelete(user.id);
     navigate("/login");
   }
   function deleteUser(e) {
@@ -27,7 +26,6 @@ export default function ProfileUser() {
       "User Deleted",
       navigateto
     );
-    console.log(user.id);
   }
   return (
     <div>

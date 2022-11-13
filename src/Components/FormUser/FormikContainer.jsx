@@ -29,19 +29,16 @@ export default function FormikContainer({ action }) {
     avatar: user ? user.avatar : "",
   };
 
-  if (isErrorRegister) {
-    if (errorRegister.originalStatus === 404) {
-      alert("Error", "Error email already exist", "error");
-    } else {
-      alert("Error", "Error", "error");
-    }
-  } else if (isErrorEdit) {
-    if (errorEdit.status === 404) {
-      alert("Error", errorEdit.data.error, "error");
-    } else {
-      console.log("error", errorEdit.status);
-      alert("Error", "Error", "error");
-    }
+  if (
+    (isErrorRegister && errorRegister.originalStatus === 404) ||
+    (isErrorEdit && errorEdit.status === 404)
+  ) {
+    alert("Error", "Error email already exist", "error");
+  }
+
+  if (!isErrorEdit && isSuccess) {
+    console.log(isSuccess);
+    alert("success", "Modified data", "success");
   }
 
   const validationSchema = Yup.object({
@@ -50,11 +47,6 @@ export default function FormikContainer({ action }) {
     email: Yup.string().email().required(" Required"),
     password: action === "register" && Yup.string().required(" Required"),
   });
-
-  if (isSuccess && !errorEdit?.status) {
-    console.log(isSuccess, isErrorEdit);
-    alert("success", "Modified data", "success");
-  }
 
   const onSubmit = async (values) => {
     try {
