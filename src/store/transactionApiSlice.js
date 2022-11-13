@@ -9,12 +9,12 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllTransaction: builder.query({
       query: (args) => {
-        const {pageTrans} = args
+        const { pageTrans } = args;
         return {
-          url: `/transactions/all?page=${pageTrans}`,
+          url: `/transactions/admin/all?page=${pageTrans}`,
           method: "GET",
-        }
-      }
+        };
+      },
     }),
     createTransaction: builder.mutation({
       query: (initialData) => {
