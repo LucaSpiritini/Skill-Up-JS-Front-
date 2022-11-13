@@ -18,6 +18,7 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
     }),
     createTransaction: builder.mutation({
       query: (initialData) => {
+        console.log(initialData);
         return {
           url: "/transactions",
           method: "POST",
