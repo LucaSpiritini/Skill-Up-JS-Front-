@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const Footer = () => {
   return (
@@ -20,11 +20,11 @@ const Footer = () => {
             </li>
         </ul>
     </div>
-    <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-    <span className="block text-sm sm:text-center dark:text-gray-400">© 2022 AlkemyBank™. All Rights Reserved.
+    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+    <span class="block text-sm sm:text-center dark:text-gray-400">© 2022 AlkemyBank™. All Rights Reserved.
     </span>
 </footer>
   )
 }
 
-export default Footer
+export default Footer;

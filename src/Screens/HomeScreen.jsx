@@ -26,10 +26,14 @@ const HomeScreen = () => {
     }
   };
   if (isLoading) {
-    return <Loading/> // TODO change to Loader Spinner
+    return <Loading />; // TODO change to Loader Spinner
+  }
+
+  function toRegister() {
+    navigate("/register");
   }
   return (
-    <div className="h-full flex justify-center items-center">
+    <div className="my-64">
       <form
         className="flex flex-col md:w-1/2 lg:w-1/3 space-y-6 rounded-lg p-5 mx-auto border-2 mb-8"
         onSubmit={handleLogin}

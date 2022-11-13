@@ -33,8 +33,8 @@ const SingleBalance = ({ currency, balance, income, outcome }) => {
         <div className="flex-1">
           <div className="flex flex-col items-center justify-center space-y-3 h-full ">
             <p>Balance: ${balance}</p>
-            <p>Income: ${income}</p>
-            <p>Outcome: ${outcome}</p>
+            <p>Income: ${income > 0 ? income : 0}</p>
+            <p>Outcome: ${outcome > 0 ? outcome : 0}</p>
           </div>
         </div>
         <div className="m-12">
