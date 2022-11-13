@@ -7,6 +7,7 @@ import { setCredentials } from "../store/authSlice";
 
 import FormikControl from "../Components/Form/FormikControl";
 import { useLoginMutation } from "../store/authApiSlice";
+import alert from "../Components/Alert/Alert";
 
 export const LoginScreen = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,9 @@ export const LoginScreen = () => {
     email: "",
     password: "",
   };
+  if (isError && error.originalStatus === 404) {
+    alert("Error", "Password not match!", "error");
+  }
 
   const validationSchema = Yup.object({
     email: Yup.string().email().required(" Required"),
