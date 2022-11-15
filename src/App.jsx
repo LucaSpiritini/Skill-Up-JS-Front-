@@ -19,7 +19,6 @@ import { BalanceScreen } from "./Screens/BalanceScreen";
 import AdminUserEdit from "./Components/Admin/AdminUserEdit";
 import { LoginScreen } from "./Screens/LoginScreen";
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -29,10 +28,10 @@ function App() {
           <Route path={"/register"} element={<UserRegister />} />
           <Route element={<Persist />}>
             <Route element={<RequireAuth />}>
-                <Route path="/admin" element={<Admin/>}/>
-                <Route path="/admin/userEdit:id" element={<AdminUserEdit/>}/>
               <Route element={<TransactionLayout />}>
                 <Route path="/" element={<TransactionScreen />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin/userEdit:id" element={<AdminUserEdit />} />
                 <Route path="/edituser" element={<UserEdit />} />
                 <Route path="/edit-:id" element={<TransactionForm />} />
                 <Route path="/deposit" element={<TransactionForm />} />

@@ -26,7 +26,7 @@ export default function FormikContainer({ action }) {
     lastName: action === "edit" ? user.lastName : "",
     email: action === "edit" ? user.email : "",
     password: "",
-    avatar: action === "edit" ? user.avatar : "",
+    avatar: "",
   };
 
   if (
@@ -120,16 +120,16 @@ export default function FormikContainer({ action }) {
               name="password"
             />
           </div>
-          <div className="shadow appearance-none border-b rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          {/* <div className="shadow appearance-none border-b rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             <FormikControl
               className="border rounded-lg p-1 outline-none w-full "
               control="input"
-              type="url"
-              label="Avatar "
+              type="file"
               name="avatar"
+              label="Avatar "
               placeholder="Url Image Profile"
             />
-          </div>
+          </div> */}
           <button
             type="submit"
             disabled={!formik.isValid}

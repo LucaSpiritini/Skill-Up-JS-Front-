@@ -4,7 +4,6 @@ import { selectToken } from "../store/authSlice";
 
 const useAuth = () => {
   const token = useSelector(selectToken);
-  console.log({ "token es": token });
 
   if (token) {
     const decoded = jwtDecode(token);
